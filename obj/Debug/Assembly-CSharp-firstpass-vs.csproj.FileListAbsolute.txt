@@ -1,0 +1,11 @@
+C:\Users\Adam\Dropbox\Coding\Unity\FutileExt\Unity\Temp\bin\Debug\Assembly-CSharp-firstpass.dll
+C:\Users\Adam\Dropbox\Coding\Unity\FutileExt\Unity\Temp\bin\Debug\Assembly-CSharp-firstpass.pdb
+C:\Users\Adam\Dropbox\Coding\Unity\FutileExt\Unity\Temp\bin\Debug\GoKit.dll
+C:\Users\Adam\Dropbox\Coding\Unity\FutileExt\Unity\Temp\bin\Debug\UnityEditor.dll
+C:\Users\Adam\Dropbox\Coding\Unity\FutileExt\Unity\Temp\bin\Debug\UnityEngine.dll
+C:\Users\Adam\Dropbox\Coding\Unity\FutileExt\Unity\Temp\bin\Debug\Mono.Cecil.dll
+C:\Users\Adam\Dropbox\Coding\Unity\FutileExt\Unity\Temp\bin\Debug\nunit.framework.dll
+C:\Users\Adam\Dropbox\Coding\Unity\FutileExt\Unity\Temp\bin\Debug\ICSharpCode.NRefactory.dll
+C:\Users\Adam\Dropbox\Coding\Unity\FutileExt\Unity\obj\Debug\Assembly-CSharp-firstpass-vs.csprojResolveAssemblyReference.cache
+C:\Users\Adam\Dropbox\Coding\Unity\FutileExt\Unity\obj\Debug\Assembly-CSharp-firstpass.dll
+C:\Users\Adam\Dropbox\Coding\Unity\FutileExt\Unity\obj\Debug\Assembly-CSharp-firstpass.pdb

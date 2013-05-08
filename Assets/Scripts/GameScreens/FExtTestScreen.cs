@@ -15,7 +15,15 @@ public class FExtTestScreen : FContainer
         Instance = this;
 
         bgSprite = new FSprite("background.png");
-        AddChild(bgSprite);        
+        AddChild(bgSprite);
+
+        textbox1 = new FExtTextbox("active.png", "inactive.png", "caret.png");
+        textbox1.y = -50f;
+        AddChild(textbox1);
+
+        textbox2 = new FExtTextbox("inactive.png", "caret.png");
+        textbox2.y = 50f;
+        AddChild(textbox2);
     }
 
     public void Update(float dt)
@@ -24,5 +32,7 @@ public class FExtTestScreen : FContainer
     }
 
     public static FExtTestScreen Instance { get; private set; }    
+    
     private FSprite bgSprite;
+    private FExtTextbox textbox1, textbox2;
 }

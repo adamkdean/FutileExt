@@ -9,102 +9,143 @@ using System;
 
 public class FExtTextbox : FContainer, FSingleTouchableInterface
 {
-    public event Action<FExtTextbox> SignalPress;
-    public event Action<FExtTextbox> SignalRelease;
-    public event Action<FExtTextbox> SignalReleaseOutside;
+    public event Action<FExtTextbox> SignalFocus;
+    public event Action<FExtTextbox> SignalFocusLost;
 
-    protected FAtlasElement activeElement;
-    protected FAtlasElement inactiveElement;
-    protected FSprite bgSprite;    
+    protected FAtlasElement _activeElement, _inactiveElement, _caretElement;
+    protected FSprite _bgActiveSprite, _bgInactiveSprite, _caretSprite;
+    protected bool _hasFocus = false;
 
-    private float anchorX = 0.5f;
-    private float anchorY = 0.5f;
+    
+    private int _frameCount = 0;
+    private bool _caretVisible = false;
+    private bool _fadeDisabled = false;
+    private float _fadeDuration = 1.0f;
+    private float _anchorX = 0.5f;
+    private float _anchorY = 0.5f;
+    //private float _expansionAmount = 10;
 
-    public FExtTextbox(string activeElementName, string inactiveElementName)
+    public FExtTextbox(string activeElementName, string inactiveElementName, string caretElementName)
     {
-        activeElement = Futile.atlasManager.GetElementWithName(activeElementName);
-        inactiveElement = Futile.atlasManager.GetElementWithName(inactiveElementName);
+        if (activeElementName == inactiveElementName) _fadeDisabled = true;
 
-        bgSprite = new FSprite(inactiveElement.name);
-        bgSprite.anchorX = anchorX;
-        bgSprite.anchorY = anchorY;
+        _activeElement = Futile.atlasManager.GetElementWithName(activeElementName);
+        _inactiveElement = Futile.atlasManager.GetElementWithName(inactiveElementName);
+        _caretElement = Futile.atlasManager.GetElementWithName(caretElementName);
 
-        AddChild(bgSprite);
+        _caretSprite = new FSprite(_caretElement.name);
+        _caretSprite.anchorX = _anchorX;
+        _caretSprite.anchorY = _anchorY;
+        _caretSprite.alpha = 0f;
+
+        _bgActiveSprite = new FSprite(_activeElement.name);
+        _bgActiveSprite.anchorX = _anchorX;
+        _bgActiveSprite.anchorY = _anchorY;
+        _bgActiveSprite.alpha = 0f;
+
+        _bgInactiveSprite = new FSprite(_inactiveElement.name);
+        _bgInactiveSprite.anchorX = _anchorX;
+        _bgInactiveSprite.anchorY = _anchorY;
+
+        AddChild(_bgActiveSprite);
+        AddChild(_bgInactiveSprite);
+        AddChild(_caretSprite);
     }
-    public FExtTextbox(string backgroundElementName)
-        : this(backgroundElementName, backgroundElementName) { }
+    public FExtTextbox(string backgroundElementName, string caretElementName)
+        : this(backgroundElementName, backgroundElementName, caretElementName) { }
 
     override public void HandleAddedToStage()
     {
         base.HandleAddedToStage();
+        Futile.instance.SignalUpdate += HandleUpdate;
         Futile.touchManager.AddSingleTouchTarget(this);
     }
 
     override public void HandleRemovedFromStage()
     {
         base.HandleRemovedFromStage();
+        Futile.instance.SignalUpdate -= HandleUpdate;        
         Futile.touchManager.RemoveSingleTouchTarget(this);
+    }
+
+    public void HandleUpdate()
+    {
+        // ok so we want to detect keys pressed, put them into a string,
+        // and maybe wrap them, making sure to move the caret, and making sure
+        // not to overflowwwwwwwwwww!
+
+        // ok lunch
+
+        // flashing caret gonna flash
+        if (_hasFocus)
+        {
+            if (_frameCount % 30 == 0)
+            {
+                if (_caretVisible)
+                {
+                    _caretVisible = false;
+                    _caretSprite.alpha = 0f;
+                }
+                else
+                {
+                    _caretVisible = true;
+                    _caretSprite.alpha = 1f;
+                }
+            }
+        }
+
+        _frameCount++;
     }
 
     public bool HandleSingleTouchBegan(FTouch touch)
     {
-        Vector2 touchPos = inactiveBgSprite.GlobalToLocal(touch.position);
+        Vector2 touchPos = _bgActiveSprite.GlobalToLocal(touch.position);
 
-        if (inactiveBgSprite.textureRect.Contains(touchPos))
+        if (_bgActiveSprite.textureRect.Contains(touchPos) && !_hasFocus)
         {
-            _bg.element = _downElement;
+            if (!_fadeDisabled)
+            {
+                // fade the textbox to active, because is look nice
+                Go.to(_bgInactiveSprite, _fadeDuration, new TweenConfig().
+                    setDelay(0.0f).
+                    floatProp("alpha", 0.0f).
+                    setEaseType(EaseType.BackOut));
+                Go.to(_bgActiveSprite, _fadeDuration, new TweenConfig().
+                    setDelay(0.0f).
+                    floatProp("alpha", 1.0f).
+                    setEaseType(EaseType.BackOut));
+            }
 
-            if (_soundName != null) FSoundManager.PlaySound(_soundName);
+            _hasFocus = true;
+            if (SignalFocus != null) SignalFocus(this);
+        }
+        else 
+        {
+            if (_hasFocus && !_fadeDisabled)
+            {
+                // fade the textbox back to inactive, because is look nice
+                Go.to(_bgActiveSprite, _fadeDuration, new TweenConfig().
+                    setDelay(0.0f).
+                    floatProp("alpha", 0.0f).
+                    setEaseType(EaseType.BackOut));
+                Go.to(_bgInactiveSprite, _fadeDuration, new TweenConfig().
+                    setDelay(0.0f).
+                    floatProp("alpha", 1.0f).
+                    setEaseType(EaseType.BackOut));                
+            }
 
-            if (SignalPress != null) SignalPress(this);
+            _caretVisible = false;
+            _caretSprite.alpha = 0f;
 
-            return true;
+            _hasFocus = false;
+            if (SignalFocusLost != null) SignalFocusLost(this);
         }
 
         return false;
     }
 
-    public void HandleSingleTouchMoved(FTouch touch)
-    {
-        Vector2 touchPos = _bg.GlobalToLocal(touch.position);
-
-        //expand the hitrect so that it has more error room around the edges
-        //this is what Apple does on iOS and it makes for better usability
-        Rect expandedRect = _bg.textureRect.CloneWithExpansion(expansionAmount);
-
-        if (expandedRect.Contains(touchPos))
-        {
-            _bg.element = _downElement;
-        }
-        else
-        {
-            _bg.element = _upElement;
-        }
-    }
-
-    public void HandleSingleTouchEnded(FTouch touch)
-    {
-        _bg.element = _upElement;
-
-        Vector2 touchPos = _bg.GlobalToLocal(touch.position);
-
-        //expand the hitrect so that it has more error room around the edges
-        //this is what Apple does on iOS and it makes for better usability
-        Rect expandedRect = _bg.textureRect.CloneWithExpansion(expansionAmount);
-
-        if (expandedRect.Contains(touchPos))
-        {
-            if (SignalRelease != null) SignalRelease(this);
-        }
-        else
-        {
-            if (SignalReleaseOutside != null) SignalReleaseOutside(this);
-        }
-    }
-
-    public void HandleSingleTouchCanceled(FTouch touch)
-    {
-        _bg.element = _upElement;
-        if (SignalReleaseOutside != null) SignalReleaseOutside(this);
-    }    
+    // will decide how to handle these later
+    public void HandleSingleTouchMoved(FTouch touch) { }
+    public void HandleSingleTouchEnded(FTouch touch) { }
+    public void HandleSingleTouchCanceled(FTouch touch) { }
 }
