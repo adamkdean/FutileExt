@@ -81,6 +81,9 @@ public class RXMath
 	public const float DTOR = Mathf.PI/180.0f;
 	public const float DOUBLE_PI = Mathf.PI*2.0f;
 	public const float HALF_PI = Mathf.PI/2.0f;
+	public const float PI = Mathf.PI;
+	public const float INVERSE_PI = 1.0f/Mathf.PI;
+	public const float INVERSE_DOUBLE_PI = 1.0f/(Mathf.PI*2.0f);
 	
 	public static int Wrap(int input, int range)
 	{
@@ -121,8 +124,8 @@ public class RXMath
 	public static float PingPong(float input, float range)
 	{
 		float first = ((input + (range*1000000.0f)) % range)/range; //0 to 1
-		if(first < 0.5f) return first/0.5f;
-		else return 1.0f - ((first - 0.5f)/0.5f); 
+		if(first < 0.5f) return first*2.0f;
+		else return 1.0f - ((first - 0.5f)*2.0f); 
 	}
 	
 }
@@ -134,6 +137,11 @@ public class RXRandom
 	public static float Float()
 	{
 		return (float)_randomSource.NextDouble();
+	}
+	
+	public static double Double()
+	{
+		return _randomSource.NextDouble();
 	}
 	
 	public static float Float(float max)
@@ -156,9 +164,18 @@ public class RXRandom
 		return low + (high-low)*(float)_randomSource.NextDouble();
 	}
 	
-	public static float Range(int low, int high)
+	public static int Range(int low, int high)
 	{
 		return low + _randomSource.Next() % (high-low); 
+	}
+	public static bool Bool()
+	{
+		return _randomSource.NextDouble() < 0.5;	
+	}
+	
+	public static object Select(params object[] objects)
+	{
+		return objects[_randomSource.Next() % objects.Length];
 	}
 }
 

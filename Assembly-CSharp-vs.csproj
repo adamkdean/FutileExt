@@ -50,10 +50,13 @@
      <Compile Include="Assets\Scripts\GameScreens\FExtTestScreen.cs" />
      <Compile Include="Assets\Scripts\Helpers\MathEx.cs" />
      <Compile Include="Assets\Scripts\Helpers\SoundEx.cs" />
-     <None Include="Assets\Resources\Shaders\UnlitTransparentVertexColoredAdditive.shader" />
+     <None Include="Assets\Resources\Shaders\Futile\SolidColored.shader" />
+     <None Include="Assets\Resources\Shaders\Futile\Normal.shader" />
+     <None Include="Assets\Resources\Atlases\arial.txt" />
      <None Include="Assets\Resources\Atlases\Art.txt" />
-     <None Include="Assets\Resources\Shaders\UnlitTransparentVertexColored.shader" />
-     <None Include="Assets\Resources\Shaders\Unlit.shader" />
+     <None Include="Assets\Resources\Shaders\Futile\Solid.shader" />
+     <None Include="Assets\Resources\Shaders\Futile\AdditiveColor.shader" />
+     <None Include="Assets\Resources\Shaders\Futile\Additive.shader" />
  <Reference Include="GoKit">
  <HintPath>Assets\Plugins\GoKit.dll</HintPath>
  </Reference>
