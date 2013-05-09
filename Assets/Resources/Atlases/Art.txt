@@ -2,7 +2,7 @@
 
 "active.png":
 {
-	"frame": {"x":2,"y":2,"w":227,"h":45},
+	"frame": {"x":489,"y":604,"w":227,"h":45},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":227,"h":45},
@@ -10,7 +10,7 @@
 },
 "background.png":
 {
-	"frame": {"x":2,"y":49,"w":800,"h":600},
+	"frame": {"x":2,"y":2,"w":800,"h":600},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":800,"h":600},
@@ -18,7 +18,7 @@
 },
 "caret.png":
 {
-	"frame": {"x":804,"y":49,"w":2,"h":41},
+	"frame": {"x":718,"y":604,"w":2,"h":41},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":2,"h":41},
@@ -26,11 +26,19 @@
 },
 "inactive.png":
 {
-	"frame": {"x":2,"y":651,"w":227,"h":45},
+	"frame": {"x":260,"y":604,"w":227,"h":45},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":227,"h":45},
 	"sourceSize": {"w":227,"h":45}
+},
+"visitor_0.png":
+{
+	"frame": {"x":2,"y":604,"w":256,"h":256},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":256},
+	"sourceSize": {"w":256,"h":256}
 }},
 "meta": {
 	"app": "http://www.texturepacker.com",
@@ -39,6 +47,6 @@
 	"format": "RGBA8888",
 	"size": {"w":1024,"h":1024},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:9480476b4dd045b8be862bfbdacd4ea3$"
+	"smartupdate": "$TexturePacker:SmartUpdate:858ba34626e3d3b25b26a15fad61ea24$"
 }
 }

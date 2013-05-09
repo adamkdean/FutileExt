@@ -18,7 +18,7 @@
 	<DebugType>full</DebugType>
 	<Optimize>false</Optimize>
 	<OutputPath>Temp\bin\Debug\</OutputPath>
-	<DefineConstants>DEBUG;TRACE;UNITY_STANDALONE_WIN;ENABLE_MICROPHONE;ENABLE_IMAGEEFFECTS;ENABLE_WEBCAM;ENABLE_AUDIO_FMOD;UNITY_STANDALONE;ENABLE_NETWORK;ENABLE_MONO;ENABLE_PHYSICS;ENABLE_TERRAIN;ENABLE_CACHING;ENABLE_SUBSTANCE;ENABLE_GENERICS;ENABLE_CLOTH;ENABLE_MOVIES;ENABLE_AUDIO;ENABLE_WWW;ENABLE_SHADOWS;ENABLE_DUCK_TYPING;UNITY_4_1_2;UNITY_4_1;ENABLE_PROFILER;UNITY_EDITOR;Futile</DefineConstants>
+	<DefineConstants>DEBUG;TRACE;UNITY_WEBPLAYER;WEBPLUG;ENABLE_MICROPHONE;ENABLE_IMAGEEFFECTS;ENABLE_WEBCAM;ENABLE_AUDIO_FMOD;ENABLE_NETWORK;ENABLE_MONO;ENABLE_PHYSICS;ENABLE_TERRAIN;ENABLE_CACHING;ENABLE_SUBSTANCE;ENABLE_GENERICS;ENABLE_CLOTH;ENABLE_MOVIES;ENABLE_AUDIO;ENABLE_WWW;ENABLE_SHADOWS;ENABLE_DUCK_TYPING;UNITY_4_1_2;UNITY_4_1;ENABLE_PROFILER;UNITY_EDITOR</DefineConstants>
 	<ErrorReport>prompt</ErrorReport>
 	<WarningLevel>4</WarningLevel>
 	<NoWarn>0169</NoWarn>
@@ -44,19 +44,18 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\FExtGame.cs" />
-     <Compile Include="Assets\Scripts\FutileExt.cs" />
-     <Compile Include="Assets\Scripts\Game\FExtTextbox.cs" />
-     <Compile Include="Assets\Scripts\GameScreens\FExtTestScreen.cs" />
-     <Compile Include="Assets\Scripts\Helpers\MathEx.cs" />
-     <Compile Include="Assets\Scripts\Helpers\SoundEx.cs" />
+     <Compile Include="Assets\Scripts\Game\FTextbox.cs" />
+     <Compile Include="Assets\Scripts\Screens\TTestScreen.cs" />
+     <Compile Include="Assets\Scripts\TGame.cs" />
+     <Compile Include="Assets\Scripts\TScreen.cs" />
+     <Compile Include="Assets\Scripts\TScreenType.cs" />
+     <None Include="Assets\Resources\Shaders\Futile\AdditiveColor.shader" />
+     <None Include="Assets\Resources\Atlases\Art.txt" />
+     <None Include="Assets\Resources\Shaders\Futile\Additive.shader" />
      <None Include="Assets\Resources\Shaders\Futile\SolidColored.shader" />
      <None Include="Assets\Resources\Shaders\Futile\Normal.shader" />
-     <None Include="Assets\Resources\Atlases\arial.txt" />
-     <None Include="Assets\Resources\Atlases\Art.txt" />
+     <None Include="Assets\Resources\Atlases\visitor.txt" />
      <None Include="Assets\Resources\Shaders\Futile\Solid.shader" />
-     <None Include="Assets\Resources\Shaders\Futile\AdditiveColor.shader" />
-     <None Include="Assets\Resources\Shaders\Futile\Additive.shader" />
  <Reference Include="GoKit">
  <HintPath>Assets\Plugins\GoKit.dll</HintPath>
  </Reference>
